@@ -1,7 +1,14 @@
-from flask import Blueprint, json, request
+from flask import Blueprint, json, request, jsonify
+from app.extensions import mongo
 
-webhook = Blueprint('Webhook', __name__, url_prefix='/webhook')
+webhook = Blueprint('webhook', __name__, url_prefix='/webhook')
 
 @webhook.route('/receiver', methods=["POST"])
 def receiver():
-    return {}, 200
+    data = request.json
+
+    # ✅ Save the data to MongoDB
+    mongo.db.events.insert_one(data)
+
+    # ✅ Return success response
+    return jsonify({"status": "saved"}), 200
