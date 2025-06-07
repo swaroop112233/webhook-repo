@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Webhook Events</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { color: #333; }
+        .event {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>GitHub Webhook  Events</h1>
+
+    {% if events %}
+        {% for event in events %}
+            <div class="event">
+                <strong>{{ event.author }}</strong> 
+                performed <strong>{{ event.action }}</strong>
+                {% if event.from_branch and event.to_branch %}
+                    from <strong>{{ event.from_branch }}</strong> to <strong>{{ event.to_branch }}</strong>
+                {% endif %}
+                <br><small>{{ event.timestamp }}</small>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No events yet.</p>
+    {% endif %}
+</body>
+</html>
