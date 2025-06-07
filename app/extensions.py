@@ -1,3 +1,6 @@
-from flask_pymongo import PyMongo
+from pymongo import MongoClient
 
-mongo = PyMongo(uri="mongodb+srv://webuser:web1234@cluster0.sv0nyyl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+def connect_mongo():
+    client = MongoClient("mongodb+srv://webuser:web1234@cluster0.sv0nyyl.mongodb.net/webhookDB?retryWrites=true&w=majority")
+    db = client["webhookDB"]
+    return db
